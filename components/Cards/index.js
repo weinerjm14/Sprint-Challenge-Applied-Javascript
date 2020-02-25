@@ -30,19 +30,23 @@ function articleMaker(obj){
     let articleHeadline = document.createElement('div');
     articleHeadline.classList.add('headline');
     articleHeadline.textContent = obj.headline;
-    articleMainContainer.appendChild(articleHeadline);
-
+    articleSmallContainer.appendChild(articleHeadline);
+    
     let articleAuthorContainer = document.createElement('div');
     articleAuthorContainer.classList.add('author');
-    articleMainContainer.appendChild(articleAuthorContainer);
+    articleSmallContainer.appendChild(articleAuthorContainer);
 
-    let authorImg = document.appendChild('img');
-    authorImg.setAttribute('src', `${obj.authorPhoto}`);
-    articleMainContainer.appendChild(authorImg);
+    let articleImgContainer = document.createElement('div');
+    articleImgContainer.classList.add('img-container');
+    articleAuthorContainer.appendChild(articleImgContainer);
+
+    let authorImg = document.createElement('img');
+    authorImg.setAttribute('src', obj.authorPhoto);
+    articleImgContainer.appendChild(authorImg);
 
     let authorName = document.createElement('span');
     authorName.textContent = `By: ${obj.authorName}`
-    articleMainContainer.appendChild(authorName);
+    articleSmallContainer.appendChild(authorName);
 
     return articleMainContainer;
 
@@ -56,7 +60,30 @@ axios.get(`https://lambda-times-backend.herokuapp.com/articles`)
         response.data.articles.javascript.forEach((item => {
             articleMaker(item);
         }))
-        // console.log(response.data.articles.javascript);
+        
+    
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+    axios.get(`https://lambda-times-backend.herokuapp.com/articles`)
+    .then((response) =>  {
+        response.data.articles.bootstrap.forEach((item => {
+            articleMaker(item);
+        }))
+        
+    
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+    axios.get(`https://lambda-times-backend.herokuapp.com/articles`)
+    .then((response) =>  {
+        response.data.articles.technology.forEach((item => {
+            articleMaker(item);
+        }))
+        
+    
     })
     .catch((err) => {
         console.log(err);
