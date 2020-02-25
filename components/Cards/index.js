@@ -99,3 +99,14 @@ axios.get(`https://lambda-times-backend.herokuapp.com/articles`)
     .catch((err) => {
         console.log(err);
     })
+    axios.get(`https://lambda-times-backend.herokuapp.com/articles`)
+    .then((response) =>  {
+        response.data.articles.node.forEach((item => {
+            articleMaker(item);
+        }))
+        
+    
+    })
+    .catch((err) => {
+        console.log(err);
+    })
